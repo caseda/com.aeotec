@@ -8195,8 +8195,8 @@
         "unlearnmode": {
           "image": "/drivers/ZW162-C/assets/learnmode.svg",
           "instruction": {
-            "en": "Quickly press the action button on the rear of Doorbell 6 6 times.",
-            "nl": "Druk 6 keer snel achter elkaar op de actie knop van de achterkant van Doorbell 6."
+            "en": "Press the action button on the rear of Doorbell 6 once, if nothing happens quickly press 6 times.",
+            "nl": "Druk een keer op de actie knop op de achterkant van Doorbell 6, gebeurt er niks, druk dan 6 keer snel achter elkaar op de actie knop."
           }
         },
         "associationGroupsMultiChannel": [
