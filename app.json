@@ -494,6 +494,20 @@
             "filter": "driver_id=ZW130"
           }
         ]
+      },
+      {
+        "id": "ZW162-doorbell-rang",
+        "title": {
+          "en": "Doorbell is pressed",
+          "nl": "Er is aangebeld"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ZW162-C"
+          }
+        ]
       }
     ],
     "actions": [

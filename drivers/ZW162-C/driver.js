@@ -18,6 +18,14 @@ class AeotecDoorbellSixDriver extends Homey.Driver {
       .registerRunListener(async (args, state) => {
         return args.device.resetSiren();
       });
+
+    this.triggerDoorbellRang = new Homey.FlowCardTriggerDevice('ZW162-doorbell-rang').register();
+  }
+
+  triggerDoorbellRangFlow(device) {
+    this.triggerDoorbellRang
+      .trigger(device, {}, {})
+      .catch(err => this.error('Error: could not trigger doorbell rang flow', err));
   }
 
 }
