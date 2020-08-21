@@ -28,10 +28,10 @@ class ZWA001 extends ZwaveDevice {
       }
 
       // Send values
-      return await this._sendColors({ warm: temp.ww, cold: temp.cw });
+      return this._sendColors({ warm: temp.ww, cold: temp.cw });
     });
 
-    this.registerSetting('80', input => new Buffer([(input) ? 1 : 0]));
+    this.registerSetting('80', input => Buffer.from([(input) ? 1 : 0]));
   }
 
   async _sendColors({ warm, cold }) {
@@ -54,12 +54,12 @@ class ZWA001 extends ZwaveDevice {
     };
 
     if (SwitchColorVersion > 1) {
-      setCommand.duration = typeof duration !== 'number' ? DEFAULT_COLOR_DURATION : Utils.calculateZwaveDimDuration(duration);
+      setCommand.duration = DEFAULT_COLOR_DURATION;
     }
 
     // Fix broken CC_SWITCH_COLOR_V2 parser
     if (SwitchColorVersion === 2) {
-      setCommand = new Buffer([setCommand.Properties1['Color Component Count'], 0, setCommand.vg1[0].Value, 1, setCommand.vg1[1].Value, setCommand.duration]);
+      setCommand = Buffer.from([setCommand.Properties1['Color Component Count'], 0, setCommand.vg1[0].Value, 1, setCommand.vg1[1].Value, setCommand.duration]);
     }
 
     return this.node.CommandClass.COMMAND_CLASS_SWITCH_COLOR.SWITCH_COLOR_SET(setCommand);
@@ -67,7 +67,8 @@ class ZWA001 extends ZwaveDevice {
 
 
   _map(inputStart, inputEnd, outputStart, outputEnd, input) {
-    return outputStart + ((outputEnd - outputStart) / (inputEnd - inputStart)) * (input - inputStart);
+    return outputStart + ((outputEnd - outputStart) / (inputEnd - inputStart))
+      * (input - inputStart);
   }
 
 }

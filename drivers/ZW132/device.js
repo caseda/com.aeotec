@@ -12,7 +12,8 @@ class ZW132 extends ZwaveDevice {
     this.registerCapability('meter_power', 'METER', {
       getOpts: {
         getOnStart: true,
-        pollInterval: POLL_INTERVAL, // The device does not activly pushed meter_power values, so request them.
+        // The device does not activly pushed meter_power values, so request them.
+        pollInterval: POLL_INTERVAL,
       },
     });
   }

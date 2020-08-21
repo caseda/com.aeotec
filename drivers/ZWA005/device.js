@@ -17,7 +17,7 @@ class AeotecTriSensorDevice extends ZwaveDevice {
 
 
     this.registerSetting('201', value => {
-      return new Buffer([Math.round(value * 10), 1]);
+      return Buffer.from([Math.round(value * 10), 1]);
     });
   }
 

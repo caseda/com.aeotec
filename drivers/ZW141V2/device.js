@@ -9,7 +9,7 @@ class ZW141V2 extends ZwaveDevice {
     this.registerCapability('windowcoverings_set', 'SWITCH_MULTILEVEL');
 
     this.registerReportListener('BASIC', 'BASIC_REPORT', report => {
-		  this.setCapabilityValue('onoff', !!report.Value);
+      this.setCapabilityValue('onoff', !!report.Value);
     });
 
     this.registerReportListener('SWITCH_MULTILEVEL', 'SWITCH_MULTILEVEL_REPORT', report => {

@@ -24,7 +24,7 @@ class ZWA008 extends ZwaveDevice {
 
             if (report['Sensor Value'] === 'detected an event') {
               this._flowTriggerTiltInfo.trigger(this).catch(this.error);
-              if (this.getSetting('no_alarm_if_tilt') == 1) {
+              if (this.getSetting('no_alarm_if_tilt') === 1) {
                 this.setCapabilityValue('alarm_contact', false).catch(this.error);
               }
               return true;
@@ -36,9 +36,9 @@ class ZWA008 extends ZwaveDevice {
     }
 
     this.registerReportListener('CENTRAL_SCENE', 'CENTRAL_SCENE_NOTIFICATION', report => {
-      if (report.hasOwnProperty('Properties1')
-                    && report.Properties1.hasOwnProperty('Key Attributes')
-                    && report.hasOwnProperty('Scene Number')) {
+      if (report['Properties1'] !== undefined
+          && report.Properties1['Key Attributes'] !== undefined
+          && report['Scene Number'] !== undefined) {
         const state = {
           scene: report.Properties1['Key Attributes'],
         };
@@ -50,8 +50,8 @@ class ZWA008 extends ZwaveDevice {
     });
 
 
-	 this._flowTriggerTiltInfo = new Homey.FlowCardTriggerDevice('tilt_info_on').register();
-	 this._flowTriggerNoTiltInfo = new Homey.FlowCardTriggerDevice('tilt_info_off').register();
+    this._flowTriggerTiltInfo = new Homey.FlowCardTriggerDevice('tilt_info_on').register();
+    this._flowTriggerNoTiltInfo = new Homey.FlowCardTriggerDevice('tilt_info_off').register();
 
     this._flowTriggerInput = new Homey.FlowCardTriggerDevice('binary_contact_trigger').register()
       .registerRunListener((args, state) => {
@@ -59,16 +59,16 @@ class ZWA008 extends ZwaveDevice {
       });
 
 
-    const tiltInfoCondition = new Homey.FlowCardCondition('is_tilted');
-    tiltInfoCondition.register().registerRunListener((args, state) => {
-      const tiltInfo = args.device.getCapabilityValue('tilt_info');
-      return Promise.resolve(tiltInfo);
-    }),
-
+    new Homey.FlowCardCondition('is_tilted')
+      .register()
+      .registerRunListener((args, state) => {
+        const tiltInfo = args.device.getCapabilityValue('tilt_info');
+        return Promise.resolve(tiltInfo);
+      });
 
     this.DisableTamperContactFlow = new Homey.FlowCardAction('disabletampercontact').register().registerRunListener((args, state) => {
       return this.setCapabilityValue('alarm_tamper', false);
-		    });
+    });
   }
 
   inputFlowListener(args, state) {

@@ -2,8 +2,6 @@
 
 const { ZwaveDevice } = require('homey-meshdriver');
 
-const TAMPER_TIMEOUT = 30 * 1000;
-
 class ZWA019 extends ZwaveDevice {
 
   onMeshInit() {
